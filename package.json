@@ -5,8 +5,8 @@
   "main": "server.ts",
   "scripts": {
     "start": "node dist/server.js",
-    "watch": "db-migrate --env test reset &&  db-migrate --env test up && ENV=test tsc-watch --esModuleInterop src/server.ts --outDir ./dist --onSuccess \"node ./dist/server.js\"",
-    "test": " db-migrate --env test reset && db-migrate --env test up && ENV=test jasmine-ts --random=false && db-migrate --env test reset",
+    "watch": "db-migrate --env test reset &&  db-migrate --env test up && tsc-watch --esModuleInterop src/server.ts --outDir ./dist --onSuccess \"node ./dist/server.js\"",
+    "test": " db-migrate --env test reset && db-migrate --env test up && jasmine-ts --random=false && db-migrate --env test reset",
     "tsc": "tsc"
   },
   "author": "Udacity",
@@ -28,12 +28,14 @@
     "@types/jasmine": "^3.6.3",
     "@types/jsonwebtoken": "^8.5.9",
     "@types/pg": "^7.14.7",
+    "@types/supertest": "^2.0.12",
     "db-migrate": "^0.11.13",
     "db-migrate-pg": "^1.2.2",
     "dotenv": "^16.0.3",
     "jasmine": "^3.6.4",
     "jasmine-spec-reporter": "^6.0.0",
     "jasmine-ts": "^0.3.0",
+    "supertest": "^6.3.1",
     "ts-node": "^10.9.1",
     "tsc-watch": "^4.2.9"
   }
