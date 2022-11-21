@@ -8,10 +8,6 @@ const router: express.Router = express.Router();
 
 dotenv.config({ path: path.join(__dirname, "..", "..", ".env") });
 
-// /user
-
-// all requires token
-// router.use()
 
 // index: shows all users
 router.get("/", usersController.validate, usersController.index);

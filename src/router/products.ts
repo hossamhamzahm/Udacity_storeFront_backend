@@ -3,13 +3,9 @@ import products_Handler from '../handler/products';
 import usersHandler from "../handler/users";
 
 const router : express.Router = express.Router();
-// /products
 
 // index: shows all products
 router.get('/', products_Handler.index) 
-// handel top 5 products 
-// handel product categories
-
 
 
 // show a specific product

@@ -4,7 +4,7 @@
     "**/*[S]pec.ts"
   ],
   "helpers": [
-    "helpers/**/*.js"
+    "helpers/**/*.ts"
   ],
   "reporters": [
     {

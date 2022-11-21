@@ -5,7 +5,8 @@ import usersHandler from "../handler/users";
 const router : express.Router = express.Router();
 
 
-// index: shows all completed orders
-router.get('/', usersHandler.validate, ordersHandler.index) 
+// index: shows all/completed orders
+router.get("/", usersHandler.validate, ordersHandler.index);
+router.get("/:userID", usersHandler.validate, ordersHandler.show_current); 
 
 export default router;

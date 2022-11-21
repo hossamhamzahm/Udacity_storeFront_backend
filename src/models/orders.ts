@@ -12,7 +12,7 @@ export type Order = {
     f_name?: string;
     l_name?: string;
     user_password?: string;
-    order_status: Boolean;
+    current_order: Boolean;
 };
 
 
@@ -42,19 +42,19 @@ export class OrdersStore{
         return result;
     };
 
-    async show_current() : Promise<Order[]> {
+    async show_current(user_id: string) : Promise<Order[]> {
         const query : string = `
         SELECT * FROM orders
         INNER JOIN users
         ON users.user_id = orders.user_id
         INNER JOIN products
         ON products.product_id = orders.order_id
-        WHERE orders.order_status = true;`;
+        WHERE orders.current_order = true AND users.user_id = $1;`;
 
         let result : Order[] = [];
         
         try{
-            result = (await client.query(query)).rows;
+            result = (await client.query(query, [user_id])).rows;
             result.forEach(item => {
                 delete item['user_password']
             })

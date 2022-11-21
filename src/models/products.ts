@@ -49,7 +49,7 @@ export class ProductsStore{
     };
     
     async create(product: Product) : Promise<Product[]> {
-        const query: string = "INSERT INTO Products (product_name, product_price, product_category) VALUES ($1, $2, $3);";
+        const query: string = "INSERT INTO Products (product_name, product_price, product_category) VALUES ($1, $2, $3) RETURNING *;";
         const result = await client.query(query, [product.product_name, product.product_price, product.product_category]);
         return result.rows; 
     };

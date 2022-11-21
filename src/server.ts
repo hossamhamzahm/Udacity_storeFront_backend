@@ -8,11 +8,14 @@ import ordersRouter from './router/orders';
 import cors from 'cors';
 
 
-const app: express.Application = express()
 dotenv.config({ path: path.join(__dirname, "..", ".env") });
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
-app.use(cors())
+
+const app: express.Application = express()
+app.use(
+    express.urlencoded({ extended: true }),
+    express.json(),
+    cors()
+)
 
 
 app.use("/users", userRouter);
