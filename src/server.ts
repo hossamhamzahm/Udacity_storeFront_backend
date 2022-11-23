@@ -6,6 +6,7 @@ import userRouter from './router/users';
 import productsRouter from './router/products';
 import ordersRouter from './router/orders';
 import cors from 'cors';
+import wrapAsync from './helpers/wrapAsync';
 
 
 dotenv.config({ path: path.join(__dirname, "..", ".env") });
@@ -29,7 +30,10 @@ app.get('/', function (req: Request, res: Response) {
 
 const PORT : number = (process.env.PORT as unknown) as number;
 
-app.listen(PORT, async () => {
+app.listen(PORT, wrapAsync (async () => {
     console.log(`starting app on: ${PORT}`)
     await client.connect();
-});
+}));
+
+
+export default app;

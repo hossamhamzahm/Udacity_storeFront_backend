@@ -4,9 +4,9 @@ import dotenv from "dotenv";
 import path from "path";
 import bcrypt from 'bcrypt';
 import { UsersStore } from "../../models/users";
-import { createPrinter } from "typescript";
 
 dotenv.config({ path: path.join(__dirname, "..", "..", "..", ".env") });
+process.env.ENV = "test";
 
 
 

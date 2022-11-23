@@ -21,13 +21,7 @@ export class UsersStore{
         const query : string = 'SELECT * FROM users;';
         let result : User[] = [];
         
-        try{
-            result = (await client.query(query)).rows;
-        }
-        catch(e){
-            console.log(e);
-        }
-        
+        result = (await client.query(query)).rows;
         return result;
     };
 
@@ -36,12 +30,7 @@ export class UsersStore{
         const query : string = 'SELECT * FROM users WHERE user_id = $1;';
         let result : User[] = [];
         
-        try{
-            result = (await client.query(query, [id])).rows;
-        }
-        catch(e){
-            console.log(e);
-        }
+        result = (await client.query(query, [id])).rows;
         if(result.length < 1) throw new Error(`can't find user with id ${id}`);
         
         return result[0];

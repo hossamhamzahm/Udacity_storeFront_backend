@@ -1,4 +1,5 @@
 import { OrdersStore } from "../../models/orders";
+process.env.ENV = "test";
 
 
 describe("Orders Tests", () => {

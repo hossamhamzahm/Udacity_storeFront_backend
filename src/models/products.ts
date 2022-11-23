@@ -22,13 +22,7 @@ export class ProductsStore{
         const query : string = 'SELECT * FROM Products;';
         let result : Product[] = [];
         
-        try{
-            result = (await client.query(query)).rows;
-        }
-        catch(e){
-            console.log(e);
-        }
-        
+        result = (await client.query(query)).rows;
         return result;
     };
 
@@ -37,14 +31,9 @@ export class ProductsStore{
         const query : string = 'SELECT * FROM Products WHERE Product_id = $1;';
         let result : Product[] = [];
         
-        try{
-            result = (await client.query(query, [id])).rows;
-        }
-        catch(e){
-            console.log(e);
-        }
-        if(result.length < 1) throw new Error(`can't find Product with id ${id}`);
+        result = (await client.query(query, [id])).rows;
         
+        if(result.length < 1) throw new Error(`can't find Product with id ${id}`);
         return result[0];
     };
     

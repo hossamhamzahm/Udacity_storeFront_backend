@@ -1,4 +1,5 @@
 import { ProductsStore, Product } from "../../models/products";
+process.env.ENV = "test";
 
 
 
