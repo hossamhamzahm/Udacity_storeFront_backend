@@ -55,7 +55,6 @@ describe("Orders Tests", () => {
                 order_id: 4
             }]
 
-        console.log(rows);
         expect(rows).toEqual(anticipated_result);
     })
 
@@ -64,17 +63,31 @@ describe("Orders Tests", () => {
         const rows = await productsStore.show_current("1");
 
         const anticipated_result = [{
-                f_name: 'hossam',
-                l_name: 'hamza',
-                product_id: 4,
-                product_name: 'Banana',
-                product_price: 3,
-                product_category: 'Food',
-                current_order: true,
-                user_id: 1,
-                order_id: 4
-            }
-        ]
-        expect(rows).toEqual(anticipated_result);
+            quantity: 3,
+            product_name: 'Banana',
+            product_price: 3,
+            product_category: 'Food',
+            order_id: 4
+        },
+        {
+            quantity: 3,
+            product_name: 'Apple',
+            product_price: 2,
+            product_category: 'Food',
+            order_id: 4
+        }]
+        expect(rows as unknown).toEqual(anticipated_result);
+    })
+
+    it("[add product] /orders/:userID/:orderID add a product to current order", async()=>{
+        const productsStore = new OrdersStore();
+        const rows = await productsStore.add_product("1", "2");
+
+        const anticipated_result = {
+            quantity: 1,
+            product_id: '2',
+            order_id: '4'
+        }
+        expect(rows[0] as unknown).toEqual(anticipated_result);
     })
 })

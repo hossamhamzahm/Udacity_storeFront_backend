@@ -46,7 +46,7 @@ describe("Products Tests", () => {
 
     
     it("[GET] /products/:id show a specific product", (done) => {
-    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmX25hbWUiOiJob3NzYW0iLCJ1c2VyX2lkIjoxLCJpYXQiOjE2NjkwMDgxMDZ9.NPsEHnSGle56-hD6IxUbWIl55tKk2KZL97WkUUyIkSM'
+    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmX25hbWUiOiJob3NzYW0iLCJ1c2VyX2lkIjoxLCJpYXQiOjE2NjkyMzkyNzZ9.eHtzKLSnJZ-brb-r9r3rzVuTP29VpgEfjb1puSJHHNE'
     
     const anticipated_result = {
             product_id: 1,
@@ -93,7 +93,7 @@ describe("Products Tests", () => {
 
 
     it("[POST] /products should create one product", (done) => {
-        const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmX25hbWUiOiJob3NzYW0iLCJ1c2VyX2lkIjoxLCJpYXQiOjE2NjkwMDgxMDZ9.NPsEHnSGle56-hD6IxUbWIl55tKk2KZL97WkUUyIkSM'
+        const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmX25hbWUiOiJob3NzYW0iLCJ1c2VyX2lkIjoxLCJpYXQiOjE2NjkyMzkyNzZ9.eHtzKLSnJZ-brb-r9r3rzVuTP29VpgEfjb1puSJHHNE'
 
         const req_body = {
             product_name: "new_product",

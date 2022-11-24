@@ -13,6 +13,7 @@ const validate = async(req: express.Request, res: express.Response, next: expres
     const userStore = new UsersStore();
     const token = req.headers.authorization?.split(' ')[1] as string;
 
+    
     await jwt.verify(token, process.env.TOKEN_SECRET as string);
     next();
 }

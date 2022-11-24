@@ -1,11 +1,11 @@
 CREATE TABLE IF NOT EXISTS order_products(
-    order_product_id SERIAL PRIMARY KEY,
     order_id BIGINT,
     product_id BIGINT,
     quantity INTEGER,
 
     FOREIGN KEY (order_id) REFERENCES orders(order_id),
-    FOREIGN KEY (product_id) REFERENCES products(product_id)
+    FOREIGN KEY (product_id) REFERENCES products(product_id),
+    PRIMARY KEY (order_id, product_id)
 );
 
 
@@ -29,11 +29,11 @@ INSERT INTO order_products (order_id, product_id, quantity)
 
 
 INSERT INTO order_products (order_id, product_id, quantity)
-    VALUES (4, 4, 3);
+    VALUES (4, 3, 3);
 
 INSERT INTO order_products (order_id, product_id, quantity)
-    VALUES (3, 3, 1);
+    VALUES (3, 3, 2);
 
 
 INSERT INTO order_products (order_id, product_id, quantity)
-    VALUES (3, 3, 1);
+    VALUES (3, 4, 1);

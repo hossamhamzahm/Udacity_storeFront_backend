@@ -23,8 +23,7 @@ GRANT ALL PRIVILEGES ON DATABASE company_test TO test_user;
 ```
 
 
-> use the following jwt in your requests to be authenticated:
-`eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmX25hbWUiOiJob3NzYW0iLCJ1c2VyX2lkIjoxLCJpYXQiOjE2NjkwMDgxMDZ9.NPsEHnSGle56-hD6IxUbWIl55tKk2KZL97WkUUyIkSM`
+> use the following jwt in your requests to be authenticated. To get a jwt, sign in using the end point provided in the requirements.md
 
 <br>
 

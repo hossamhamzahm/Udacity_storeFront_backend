@@ -4,7 +4,7 @@ const wrapAsync =  function <T>(fn: (...args: any[]) => Promise<T>): (...args: a
             return await fn(...args)
         }
         catch(e: unknown){
-            console.error("An error happened:", (e as Error).message);
+            // console.error("An error happened:", (e as Error).message);
             if(args[1]) return args[1].status(500).send({ message: `${(e as Error).message}`, error: e });
         }
     }

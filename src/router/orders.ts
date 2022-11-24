@@ -10,4 +10,7 @@ const router : express.Router = express.Router();
 router.get("/", wrapAsync( usersHandler.validate), wrapAsync(ordersHandler.index));
 router.get("/:userID", wrapAsync(usersHandler.validate), wrapAsync(ordersHandler.show_current)); 
 
+// add a product to current order
+router.patch("/:userID/:productID", wrapAsync(usersHandler.validate), wrapAsync(ordersHandler.add_product)); 
+
 export default router;

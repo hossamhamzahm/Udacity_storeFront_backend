@@ -17,7 +17,15 @@ const show_current = async (req: express.Request, res: express.Response) => {
     res.send(rows);
 };
 
+
+const add_product = async (req: express.Request, res: express.Response) => {
+    const productsStore = new OrdersStore();
+    const rows = await productsStore.add_product(req.params.userID as string,req.params.productID as string);
+    res.send(rows);
+};
+
 export default {
     index,
     show_current,
+    add_product,
 };

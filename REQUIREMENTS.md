@@ -34,7 +34,7 @@ These are the notes from a meeting with the frontend developer that describe wha
     }
 }
 ```
-- Sign in using `users/` [POST]
+- Sign in using `users/` [POST] to get a valid jwt:
     > the following json body should be sent to the endpoint
 ```json
 {
@@ -49,6 +49,7 @@ These are the notes from a meeting with the frontend developer that describe wha
 #### Orders
 - Current Order by user (args: user id) `/orders/:userID` [GET] [token required]
 - ALL Orders `/orders` [token required]
+- Add a product to the current order `/orders/:userID/:productID` [PATCH] [token required]
 
 ## Data Shapes
 
@@ -87,12 +88,12 @@ CREATE TABLE IF NOT EXISTS orders(
 #### Order-products
 ```sql
 CREATE TABLE IF NOT EXISTS order_products(
-    order_product_id SERIAL PRIMARY KEY,
     order_id BIGINT,
     product_id BIGINT,
     quantity INTEGER,
 
     FOREIGN KEY (order_id) REFERENCES orders(order_id),
-    FOREIGN KEY (product_id) REFERENCES products(product_id)
+    FOREIGN KEY (product_id) REFERENCES products(product_id),
+    PRIMARY KEY (order_id, product_id)
 );
 ```
