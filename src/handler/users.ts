@@ -13,17 +13,20 @@ const validate = async(req: express.Request, res: express.Response, next: expres
     const userStore = new UsersStore();
     const token = req.headers.authorization?.split(' ')[1] as string;
 
-    
-    await jwt.verify(token, process.env.TOKEN_SECRET as string);
-    next();
+    try{
+        await jwt.verify(token, process.env.TOKEN_SECRET as string);
+        next();
+    }
+    catch(e: unknown){
+        res.status(401).send({error: e})
+    }
 }
 
 
-const create =  async (req: express.Request, res: express.Response) => {
+const create =  async (req: express.Request, res: express.Response, next: express.NextFunction) => {
     const userStore = new UsersStore();
     const { f_name, l_name, user_password } = req.body.user;
     const result = await userStore.create({ f_name, l_name, user_password});
-    
     
     try{
         const token = await jwt.sign({user: f_name}, process.env.TOKEN_SECRET as string)
@@ -35,36 +38,52 @@ const create =  async (req: express.Request, res: express.Response) => {
 }
 
 
-const index = async (req: express.Request, res: express.Response) => {
+const index = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
     const userStore = new UsersStore();
-    const rows = await userStore.index();
-    res.send(rows);
+
+    try{
+        const rows = await userStore.index();
+        res.send(rows);
+    }
+    catch(e: unknown){
+        next(e);
+    }
 };
 
-const show = async (req: express.Request, res: express.Response) => {
+const show = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
     const userStore = new UsersStore();
-    const user = await userStore.show(req.params.id as string);
     
-    delete user.user_password;
-    res.send(user);
+    try{
+        const user = await userStore.show(req.params.id as string);
+        delete user.user_password;
+        res.send(user);
+    }
+    catch(e: unknown){
+        next(e);
+    }
 };
 
 
 
-const sign_in = async (req: express.Request, res: express.Response) => {
+const sign_in = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
     const userStore = new UsersStore();
     const user = await userStore.show(req.body.user.user_id as string);
     
-    const needs_hashing = req.body.user.user_password as string + process.env.BCRYPT_SECRET as string
-    const pass_comparison = await bcrypt.compareSync(needs_hashing, user.user_password as string)
-
-    if(!pass_comparison){
-        return res.status(401).send({msg: "Invalid credentials"})
+    try{
+        const needs_hashing = req.body.user.user_password as string + process.env.BCRYPT_SECRET as string
+        const pass_comparison = await bcrypt.compareSync(needs_hashing, user.user_password as string)
+    
+        if(!pass_comparison){
+            return res.status(401).send({msg: "Invalid credentials"})
+        }
+    
+        const token = jwt.sign({ f_name: user.f_name, user_id: user.user_id }, process.env.TOKEN_SECRET as string);
+        res.header('Authorization', 'Bearer ' + token);
+        res.send({msg: "logged in successfully", token});
     }
-
-    const token = jwt.sign({ f_name: user.f_name, user_id: user.user_id }, process.env.TOKEN_SECRET as string);
-    res.header('Authorization', 'Bearer ' + token);
-    res.send({msg: "logged in successfully", token});
+    catch(e: unknown){
+        next(e);
+    }
 };
 
 export default {

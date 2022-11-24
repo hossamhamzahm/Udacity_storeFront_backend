@@ -36,7 +36,7 @@ export class OrdersStore{
             })
         }
         catch(e){
-            console.log(e);
+            if(process.env.ENV  == 'dev') console.log(e);
         }
         
         return result;
@@ -56,11 +56,16 @@ export class OrdersStore{
 
         WHERE orders.current_order = true AND users.user_id = $1;`;
 
-        let result : Order[] = (await client.query(query, [user_id])).rows;
-
-        result.forEach(item => {
-            delete item['user_password']
-        })
+        let result: Order[] = [];
+        try{
+            result = (await client.query(query, [user_id])).rows;
+            result.forEach(item => {
+                delete item['user_password']
+            })
+        }
+        catch(e: unknown){
+            if(process.env.ENV  == 'dev') console.log(e);
+        }
 
         return result;
     };
@@ -76,7 +81,13 @@ export class OrdersStore{
             SET quantity = order_products.quantity +1 RETURNING *;
         `;
 
-        let result : Order[] = (await client.query(query, [current_order[0].order_id, product_id])).rows;
+        let result: Order[] = [];
+        try{
+            result = (await client.query(query, [current_order[0].order_id, product_id])).rows;
+        }
+        catch(e: unknown){
+            if(process.env.ENV  == 'dev') console.log(e);
+        }
         return result;
     };
 

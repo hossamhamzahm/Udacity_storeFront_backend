@@ -84,7 +84,7 @@ describe("Products Tests", () => {
         request(app)
         .post('/products')
         .send(req_body)
-        .expect(500)
+        .expect(401)
         .end((err, res) => {
             if(err) return done.fail();
             return done();

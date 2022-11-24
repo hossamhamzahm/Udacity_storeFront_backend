@@ -32,7 +32,12 @@ const PORT : number = (process.env.PORT as unknown) as number;
 
 app.listen(PORT, wrapAsync (async () => {
     console.log(`starting app on: ${PORT}`)
-    await client.connect();
+    try{
+        await client.connect();
+    }
+    catch(e: unknown){
+        if(process.env.ENV  == 'dev') console.log(e)
+    }
 }));
 
 

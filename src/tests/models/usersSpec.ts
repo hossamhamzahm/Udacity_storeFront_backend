@@ -35,7 +35,7 @@ describe("User Tests", () => {
     it("testing showing all users (index)", async() => {
         const userStore = new UsersStore();
         const result = await userStore.index();
-        // console.log(result);
+        // if(process.env.ENV  == 'dev') console.log(result);
         const anticipated_result = [{
             user_id: 1,
             f_name: "hossam",
